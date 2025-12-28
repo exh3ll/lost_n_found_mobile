@@ -1,40 +1,43 @@
-import 'package:lost_n_found/core/services/hive/hive_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lost_n_found/core/providers/shared_prefs_provider.dart';
 import 'package:lost_n_found/features/batch/data/datasources/batch_datasource.dart';
 import 'package:lost_n_found/features/batch/data/models/batch_hive_model.dart';
 
 class BatchLocalDatasource implements IBatchDatasource {
-  final HiveService _hiveService;
+  final Ref ref;
 
-  BatchLocalDatasource({required HiveService hiveService})
-    : _hiveService = hiveService;
+  BatchLocalDatasource(this.ref);
 
   @override
-  Future<bool> createBatch(BatchHiveModel batch) {
-    // TODO: implement createBatch
-    throw UnimplementedError();
+  Future<List<BatchHiveModel>> getAllBatches() async {
+    final hiveService = ref.read(hiveServiceProvider);
+    return Future.value(hiveService.getAllBatches());
   }
 
   @override
-  Future<bool> deletebatch(String batchId) {
-    // TODO: implement deletebatch
-    throw UnimplementedError();
+  Future<BatchHiveModel?> getBatchById(String batchId) async {
+    final hiveService = ref.read(hiveServiceProvider);
+    return Future.value(hiveService.getBatchById(batchId));
   }
 
   @override
-  Future<List<BatchHiveModel>> getAllBatches() {
-    // TODO: implement getAllBatches
-    throw UnimplementedError();
+  Future<bool> createBatch(BatchHiveModel batch) async {
+    final hiveService = ref.read(hiveServiceProvider);
+    await hiveService.createBatch(batch);
+    return true;
   }
 
   @override
-  Future<BatchHiveModel> getBatchById(String batchId) {
-    // TODO: implement getBatchById
-    throw UnimplementedError();
+  Future<bool> updateBatch(BatchHiveModel batch) async {
+    final hiveService = ref.read(hiveServiceProvider);
+    await hiveService.updateBatch(batch);
+    return true;
   }
 
   @override
-  Future<bool> updateBatch(BatchHiveModel batch) {
-    // TODO: implement upadteBatch
-    throw UnimplementedError();
+  Future<bool> deleteBatch(String batchId) async {
+    final hiveService = ref.read(hiveServiceProvider);
+    await hiveService.deleteBatch(batchId);
+    return true;
   }
 }
