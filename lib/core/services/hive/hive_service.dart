@@ -31,36 +31,36 @@ class HiveService {
   Future<void> close() async {
     await Hive.close();
   }
-}
 
-// Batch CRUD operations
+  // Get batch box
+  Box<BatchHiveModel> get _batchBox =>
+      Hive.box<BatchHiveModel>(HiveTableConstant.batchTable);
 
-// Get batch box
-Box<BatchHiveModel> get _batchBox =>
-    Hive.box<BatchHiveModel>(HiveTableConstant.batchTable);
+  // Batch CRUD operations
 
-// Create a new batch
-Future<BatchHiveModel> createBatch(BatchHiveModel batch) async {
-  await _batchBox.put(batch.batchId, batch);
-  return batch;
-}
+  // Create a new batch
+  Future<BatchHiveModel> createBatch(BatchHiveModel batch) async {
+    await _batchBox.put(batch.batchId, batch);
+    return batch;
+  }
 
-// Get all batches
-List<BatchHiveModel> getAllBatches() {
-  return _batchBox.values.toList();
-}
+  // Get all batches
+  List<BatchHiveModel> getAllBatches() {
+    return _batchBox.values.toList();
+  }
 
-// Get batch by ID
-BatchHiveModel? getBatchById(String batchId) {
-  return _batchBox.get(batchId);
-}
+  // Get batch by ID
+  BatchHiveModel? getBatchById(String batchId) {
+    return _batchBox.get(batchId);
+  }
 
-// Update a batch
-Future<void> updateBatch(BatchHiveModel batch) async {
-  await _batchBox.put(batch.batchId, batch);
-}
+  // Update a batch
+  Future<void> updateBatch(BatchHiveModel batch) async {
+    await _batchBox.put(batch.batchId, batch);
+  }
 
-// Delete a batch
-Future<void> deleteBatch(String batchId) async {
-  await _batchBox.delete(batchId);
+  // Delete a batch
+  Future<void> deleteBatch(String batchId) async {
+    await _batchBox.delete(batchId);
+  }
 }
