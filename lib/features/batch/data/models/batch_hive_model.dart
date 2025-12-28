@@ -1,4 +1,4 @@
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive/hive.dart';
 import 'package:lost_n_found/core/constants/hive_table_constant.dart';
 import 'package:lost_n_found/features/batch/domain/entities/batch_entity.dart';
 import 'package:uuid/uuid.dart';
@@ -27,7 +27,7 @@ class BatchHiveModel extends HiveObject {
 
   // Convert Batch Entity to Model
   factory BatchHiveModel.fromEntity(BatchEntity entity) {
-    return BatchHiveModel(batchName: entity.batchName);
+    return BatchHiveModel(batchName: entity.batchName ?? '');
   }
 
   // Convert List of Models to List of Batch Entities
